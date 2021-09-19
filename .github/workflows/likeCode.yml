@@ -1,4 +1,4 @@
-name: Like pizza
+name: Like code
 
 on:
   issue_comment:
@@ -6,11 +6,11 @@ on:
       - created
 
 jobs:
-  like-pizza:
+  like-code:
     runs-on: ubuntu-latest
-    if: ${{ github.event.comment.body == 'I like pizza'}}
+    if: ${{ github.event.comment.body == 'I like code'}}
     steps:
-      - name: Like pizza
+      - name: Like code
         uses: actions/github-script@v4
         with:
           script: |
