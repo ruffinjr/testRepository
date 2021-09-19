@@ -3,7 +3,7 @@ name: Like code
 on:
   issue_comment:
     types:
-      - created
+      - opened
 
 jobs:
   like-code:
