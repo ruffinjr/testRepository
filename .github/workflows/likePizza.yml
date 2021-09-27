@@ -8,9 +8,9 @@ on:
 jobs:
   like-code:
     runs-on: ubuntu-latest
-    if: ${{ github.event.comment.body == 'I like code'}}
+    if: ${{ github.event.comment.body == 'I like pizza'}}
     steps:
-      - name: Like code
+      - name: Like pizza
         uses: actions/github-script@v4
         with:
           script: |
