@@ -16,10 +16,10 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy Stage
-      uses: fjogeleit/http-request-action@master
-      with:
-        url: 'https://ansible.io/api/v2/job_templates/84/launch/'
-        method: 'POST'
-        username: ${{ secrets.AWX_USER }}
-        password: ${{ secrets.AWX_PASSWORD }}
+      - name: Make Request
+        id: myRequest
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: "http://yoursite.com/api"
+      - name: Show Response
+        run: echo ${{ steps.myRequest.outputs.response }}
