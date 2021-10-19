@@ -20,6 +20,6 @@ jobs:
         id: myRequest
         uses: fjogeleit/http-request-action@master
         with:
-          url: "http://yoursite.com/api"
+          url: "https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1"
       - name: Show Response
         run: echo ${{ steps.myRequest.outputs.response }}
