@@ -14,4 +14,4 @@ jobs:
     steps:
     - name: curl
       run: |
-        curl https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1
+        curl https://dog-api.kinduff.com/api/facts?number=1
