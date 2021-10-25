@@ -1,23 +1,24 @@
-name: Like code
+#name: Like code
 
-on:
-  issue_comment:
-    types:
-      - created
+#on:
+  #issue_comment:
+    
+    #types:
+      #- created
 
-jobs:
-  like-code:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.comment.body == 'I like pizza'}}
-    steps:
-      - name: Like pizza
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const {owner, repo} = context.issue
-            github.reactions.createForIssueComment({
-              owner,
-              repo,
-              comment_id: context.payload.comment.id,
-              content: "+1",
-            });
+#jobs:
+  #like-code:
+    #runs-on: ubuntu-latest
+    #if: ${{ github.event.comment.body == 'I like pizza'}}
+    #steps:
+     # - name: Like pizza
+      #  uses: actions/github-script@v4
+       # with:
+        #  script: |
+         #   const {owner, repo} = context.issue
+          #  github.reactions.createForIssueComment({
+           #   owner,
+           #   repo,
+           #   comment_id: context.payload.comment.id,
+           #   content: "+1",
+           # });
