@@ -9,9 +9,26 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  curl:
+
+  curl-stmt:
     runs-on: ubuntu-latest
+    outputs:
+      dog_fact: ${{ steps.get-token.outputs.dog_fact }}
+    steps: 
+      - id: get-token
+        run: |
+          token=$( curl https://dog-api.kinduff.com/api/facts?number=1 | jq '.facts[]')
+          echo "::set-output name=dog_fact::$token"
+  
+  comment-on-issue:
+    runs-on: ubuntu-latest
+    needs: curl-stmt
+    permissions: 
+      issues: write
     steps:
-    - name: curl
-      run: |
-        curl https://dog-api.kinduff.com/api/facts?number=1
+      - name: add comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ${{ needs.curl-stmt.outputs.dog_fact }}
