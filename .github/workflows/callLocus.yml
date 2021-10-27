@@ -1,0 +1,29 @@
+name: Locus API
+on:
+  issues:
+    types:
+      - opened
+jobs:
+
+  curl-stmt:
+    runs-on: ubuntu-latest
+    outputs:
+      Locus_output: ${{ steps.get-token.outputs.dog_fact }}
+    steps: 
+      - id: get-token
+        run: |
+          token=$( curl https://dog-api.kinduff.com/api/facts?number=1 | jq '.facts[]')
+          echo "::set-output name=Locus_output::$token"
+          
+  comment-on-issue:
+    runs-on: ubuntu-latest
+    needs: curl-stmt
+    permissions:
+      issues: write
+    steps:
+      - name: Add comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ${{ needs.curl-stmt.outputs.Locus_output }}
