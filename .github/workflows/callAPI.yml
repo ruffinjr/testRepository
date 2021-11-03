@@ -11,7 +11,7 @@ on:
 jobs:
 
 
-  dump:
+  info-dump:
     runs-on: ubuntu-latest
     steps:
     - name: $github
