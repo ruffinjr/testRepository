@@ -10,6 +10,15 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
+
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+    - name: $github
+      run:   echo "$GITHUB_CONTEXT"
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+        
   curl-stmt:
     runs-on: ubuntu-latest
     outputs:
@@ -32,3 +41,5 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             ${{ needs.curl-stmt.outputs.dog_fact }}
+            "Issue title: ${{ github.event.issue.title }}"
+            "Issue bodye: ${{ github.event.issue.body }}"
