@@ -21,11 +21,11 @@ jobs:
   get-data:
     runs-on: ubuntu-latest
     outputs:
-      comment_body: ${{ steps.github-data.outputs.data }}
+      data_body: ${{ steps.get-data.outputs.test }}
     steps:
-      - id: github-data
+      - id: get-data
         run: | 
-          echo "::set-output name=data::{ "title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}", "url": "${{ github.repositoryUrl}}" } "
+          echo "::set-output name=test::{ "title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}", "url": "${{ github.repositoryUrl}}" } "
         
   curl-stmt:
     runs-on: ubuntu-latest
@@ -35,7 +35,7 @@ jobs:
     steps: 
       - id: get-response
         run: |
-          token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "${{ needs.get-comment-body.outputs.comment_body }}")
+          token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "${{ needs.get-data.outputs.data_body }}")
           echo "::set-output name=response::$token"
   
   comment-on-issue:
