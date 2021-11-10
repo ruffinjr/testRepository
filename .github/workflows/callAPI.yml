@@ -1,4 +1,4 @@
-name: Dog Facts API 
+name: Call ECHO API 
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -10,7 +10,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-
   info-dump:
     runs-on: ubuntu-latest
     steps:
@@ -19,15 +18,25 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
         
-  curl-stmt:
+  get-data:
     runs-on: ubuntu-latest
     outputs:
-      dog_fact: ${{ steps.get-token.outputs.dog_fact }}
+      comment_body: ${{ steps.github-data.outputs.data }}
+    steps:
+      - id: github-data
+        run: | 
+          echo "::set-output name=data::{ "title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}", "url": "${{ github.repositoryUrl}}" } "
+        
+  curl-stmt:
+    runs-on: ubuntu-latest
+    needs: [get-data]
+    outputs:
+      response_info: ${{ steps.get-response.outputs.response }}
     steps: 
-      - id: get-token
+      - id: get-response
         run: |
-          token=$( curl https://dog-api.kinduff.com/api/facts?number=1 | jq '.facts[]')
-          echo "::set-output name=dog_fact::$token"
+          token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "${{ needs.get-comment-body.outputs.comment_body }}")
+          echo "::set-output name=response::$token"
   
   comment-on-issue:
     runs-on: ubuntu-latest
@@ -40,6 +49,4 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            ${{ needs.curl-stmt.outputs.dog_fact }}
-            "Issue title: ${{ github.event.issue.title }}"
-            "Issue bodye: ${{ github.event.issue.body }}"
+            ${{ needs.curl-stmt.outputs.response_info }}
