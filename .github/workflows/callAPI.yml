@@ -10,32 +10,32 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  info-dump:
-    runs-on: ubuntu-latest
-    steps:
-    - name: $github
-      run:   echo "$GITHUB_CONTEXT"
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
+#  info-dump:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: $github
+#      run:   echo "$GITHUB_CONTEXT"
+#      env:
+#        GITHUB_CONTEXT: ${{ toJson(github) }}
         
-  get-data:
-    runs-on: ubuntu-latest
-    outputs:
-      data_body: ${{ steps.get-data.outputs.test }}
-    steps:
-      - id: get-data
-        run: | 
-          echo "::set-output name=test::{ "title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}", "url": "${{ github.repositoryUrl}}" } "
+#  get-data:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      data_body: ${{ steps.get-data.outputs.test }}
+#    steps:
+#      - id: get-data
+#        run: | 
+#          echo "::set-output name=test::{ "title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}", "url": "${{ github.repositoryUrl}}" } "
         
   curl-stmt:
     runs-on: ubuntu-latest
-    needs: [get-data]
+#    needs: [get-data]
     outputs:
       response_info: ${{ steps.get-response.outputs.response }}
     steps: 
       - id: get-response
         run: |
-          token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "${{ needs.get-data.outputs.data_body }}")
+          token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d '{ "title":"${{ github.event.issue.title }}", "body":"${{ github.event.issue.body }}", "url":"${{ github.repositoryUrl}}" }')
           echo "::set-output name=response::$token"
   
   comment-on-issue:
