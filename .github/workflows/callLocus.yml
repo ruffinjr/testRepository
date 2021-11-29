@@ -1,29 +1,34 @@
-name: Locus API
+name: Call Locus 
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
 on:
   issues:
     types:
-      - closed
-jobs:
+      - opened
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+      
   curl-stmt:
     runs-on: ubuntu-latest
     outputs:
-      Locus_output: ${{ steps.get-token.outputs.dog_fact }}
+      response_info: ${{ steps.get-response.outputs.response }}
     steps: 
-      - id: get-token
+      - id: get-response
         run: |
-          token=$( curl https://dog-api.kinduff.com/api/facts?number=1 | jq '.facts[]')
-          echo "::set-output name=Locus_output::$token"
-          
+          token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d '{ "title":"${{ github.event.issue.title }}", "body":"${{ github.event.issue.body }}", "url":"${{ github.repositoryUrl}}" }')
+          echo "::set-output name=response::$token"
+  
   comment-on-issue:
     runs-on: ubuntu-latest
     needs: curl-stmt
-    permissions:
+    permissions: 
       issues: write
     steps:
-      - name: Add comment
+      - name: add comment
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            ${{ needs.curl-stmt.outputs.Locus_output }}
+            ${{ needs.curl-stmt.outputs.response_info }}
