@@ -17,7 +17,7 @@ jobs:
     steps: 
       - id: get-response
         run: |
-          token=$(curl -X POST http://104.131.188.205:5000/locus -H "Content-Type: application/json" -d '{ "title":"${{ github.event.issue.title }}", "body":"${{ github.event.issue.body }}", "url":"${{ github.repositoryUrl}}" }')
+          token=$(curl -X POST http://104.131.188.205:5000/locus -H "Content-Type: application/json" -d "{ \"title\":\"${{ github.event.issue.title }}\", \"body\":\"${{ github.event.issue.body }}\", \"url\":\"${{ github.repositoryUrl}}\" }")
           echo "::set-output name=response::$token"
   
   comment-on-issue:
