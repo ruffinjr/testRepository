@@ -31,4 +31,6 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
+            Locus suggests these are the commits that most likely caused the bug:
             ${{ needs.curl-stmt.outputs.response_info }}
+            |< Most likely --------------------- Least likely >|
