@@ -4,7 +4,3 @@ author: Justin Ruffin, Rohan Repala, Dhruv Sapra, Bharath Mahendran
 branding:
   icon: 'thumbs-up'
   color: 'white'
-runs:
-  using: "composite"
-    steps:
-      uses: ruffinjr/testRepository@v1.0.3
