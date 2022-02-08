@@ -1,4 +1,4 @@
-name: call-locus
+name: call-locus2
 description: This is an action that calls locus to help find bug inducing commits
 author: Justin Ruffin, Rohan Repala, Dhruv Sapra, Bharath Mahendran
 branding:
