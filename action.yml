@@ -7,4 +7,4 @@ branding:
 runs:
   using: "composite"
     steps:
-      uses: ruffinjr/testRepository@v1.0.1
+      uses: ruffinjr/testRepository@v1.0.3
