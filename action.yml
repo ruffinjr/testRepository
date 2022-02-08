@@ -4,3 +4,11 @@ author: Justin Ruffin, Rohan Repala, Dhruv Sapra, Bharath Mahendran
 branding:
   icon: 'thumbs-up'
   color: 'white'
+runs:
+  using: "composite"
+  steps: 
+    steps:
+    - name: Echo
+      shell: bash
+      run: |
+        echo Heyyyyy
