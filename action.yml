@@ -1,0 +1,10 @@
+name: call-locus
+description: This is an action that calls locus to help find bug inducing commits
+author: Justin Ruffin, Rohan Repala, Dhruv Sapra, Bharath Mahendran
+branding:
+  icon: 'thumbs-up'
+  color: 'white'
+runs:
+  using: "composite"
+    steps:
+      uses: ruffinjr/testRepository@v1.0.3
