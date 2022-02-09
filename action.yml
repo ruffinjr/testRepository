@@ -4,11 +4,36 @@ author: Justin Ruffin, Rohan Repala, Dhruv Sapra, Bharath Mahendran
 branding:
   icon: 'thumbs-up'
   color: 'white'
+  
 runs:
   using: "composite"
   steps: 
-    steps:
-    - name: Echo
-      shell: bash
-      run: |
-        echo Heyyyyy
+    jobs:
+      curl-stmt:
+        runs-on: ubuntu-latest
+        outputs:
+          response_info: ${{ steps.get-response.outputs.response }}
+        steps: 
+          - id: get-response
+            run: |
+              token=$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "{ \
+                \"title\":\"${{ github.event.issue.title }}\", \
+                \"body\":\"${{ github.event.issue.body }}\", \
+                \"url\":\"${{ github.repositoryUrl}}\", \
+                \"openDate\":\"${{ github.event.issue.created_at}}\" }")
+              echo "::set-output name=response::$token"
+  
+      comment-on-issue:
+        runs-on: ubuntu-latest
+        needs: curl-stmt
+        permissions: 
+          issues: write
+        steps:
+          - name: add comment
+            uses: peter-evans/create-or-update-comment@v1
+            with:
+              issue-number: ${{ github.event.issue.number }}
+              body: |
+                Locus suggests these are the commits that most likely caused the bug:
+                ${{ needs.curl-stmt.outputs.response_info }}
+                ${{ github.event.issue.created_at }}
