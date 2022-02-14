@@ -10,5 +10,9 @@ runs:
   steps: 
     - 
       run: |
-        echo ${{ github.event.issue.title }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Locus suggests things
       shell: bash
