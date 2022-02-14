@@ -11,3 +11,4 @@ runs:
     - 
       run: |
         echo "Hello"
+      shell: bash
