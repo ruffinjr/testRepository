@@ -9,4 +9,5 @@ runs:
   using: "composite"
     steps:
       - id: call-api
-        run: curl -d '{"option": "value", "something": "anothervalue"}' -H "Content-Type: application/json" -X POST https://postman-echo.com/post     
+        run: |
+          curl -d '{"option": "value", "something": "anothervalue"}' -H "Content-Type: application/json" -X POST https://postman-echo.com/post     
