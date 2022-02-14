@@ -10,5 +10,5 @@ runs:
   steps:
     - id: call-api
       run: |
-        curl -d '{"option": "value", "something": "another value"}' -H "Content-Type: application/json" -X POST https://postman-echo.com/post
+        echo "::set-output name=responseInfo::$(curl -d '{"option": "value"}' -H "Content-Type: application/json" -X POST https://postman-echo.com/post)"
       shell: bash
