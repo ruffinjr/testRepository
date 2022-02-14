@@ -14,5 +14,4 @@ runs:
              \"body\":\"${{ github.event.issue.body }}\", \
              \"url\":\"${{ github.repositoryUrl}}\", \
              \"openDate\":\"${{ github.event.issue.created_at}}\" }")
-      echo $token
       shell: bash
