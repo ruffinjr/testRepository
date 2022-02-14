@@ -9,6 +9,5 @@ runs:
   using: "composite"
   steps: 
     - 
-      runs: |
+      run: |
         echo "Hello"
-      shell: bash
