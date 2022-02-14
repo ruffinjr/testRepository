@@ -7,13 +7,8 @@ branding:
           
 runs:
   using: "composite"
-    jobs:
-      comment-on-issue:
-        steps:
-          - uses: peter-evans/create-or-update-comment@v1
-            with: 
-              issue-number: ${{ github.event.issue.number }}
-              body: |
-                Locus suggests these
+    steps:
+      - id: call-api
+        run: echo "::set-output name=response::$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "{\"title\":\"${{ github.event.issue.title }}\"}")
           
       
