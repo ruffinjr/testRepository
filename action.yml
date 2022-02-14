@@ -7,8 +7,6 @@ branding:
           
 runs:
   using: "composite"
-    outputs:
-      response_info: ${{ steps.get-response.outputs.response }}
     steps: 
       - id: get-response
         run: |
