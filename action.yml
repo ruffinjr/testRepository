@@ -10,5 +10,5 @@ runs:
   steps: 
     - 
       run: |
-        echo "Hello"
+        echo ${{ github.event.issue.title }}
       shell: bash
