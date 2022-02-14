@@ -12,3 +12,10 @@ runs:
       run: |
         echo "::set-output name=responseInfo::$(curl -d '{"option": "value"}' -H "Content-Type: application/json" -X POST https://postman-echo.com/post)"
       shell: bash
+    - id: comment-issue
+      - uses: peter-evans/create-or-update-comment@v1
+        with: 
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Locus suggests these are the commits that most likely caused the bug:
+            ${{ steps.call-api.outputs.responseInfo }}
