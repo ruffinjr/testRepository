@@ -7,7 +7,7 @@ branding:
           
 runs:
   using: "composite"
-    steps:
-        run: |
-          echo "Hello World"
-        shell: bash
+  steps:
+      run: |
+        echo "Hello World"
+      shell: bash
