@@ -8,4 +8,6 @@ branding:
 runs:
   using: "composite"
   steps: 
-    - uses: ./.github/actions/callLocus
+    - 
+      runs: |
+        echo "Hello"
