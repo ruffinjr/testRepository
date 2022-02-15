@@ -10,7 +10,7 @@ runs:
   steps:
     - id: call-api
       run: |
-        echo "::set-output name=responseInfo::$(curl -d '{"title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}"}' -H "Content-Type: application/json" -X POST https://postman-echo.com/post)"
+        echo "::set-output name=responseInfo::$(curl -d '{"title": "${{ github.event.issue.title }}", "body": "${{ github.event.issue.body }}", "url": "${{ github.repositoryUrl }}", "openDate": "${{ github.event.issue.created_at }}" }' -H "Content-Type: application/json" -X POST https://postman-echo.com/post)"
       shell: bash
     - id: comment-issue
       uses: peter-evans/create-or-update-comment@v1
