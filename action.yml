@@ -11,13 +11,13 @@ runs:
     - id: call-api
       run: |
         echo "::set-output name=responseInfo::$(curl -X POST http://104.131.188.205:5000/locus -H "Content-Type: application/json" -d '{ \
-          "title":"${{ github.event.issue.title }}", \
-          "body":"${{ github.event.issue.body }}", \
-          "url":"${{ github.repositoryUrl }}", \
-          "openDate":"${{ github.event.issue.created_at }}", \
-          "repoName":"${{ github.repository }}", \
-          "issueId":"${{ github.event.issue.id }}", \
-          "issueNumber":"${{ github.event.issue.number }}" }')"
+          \"title\":\"${{ github.event.issue.title }}\", \
+          \"body\":\"${{ github.event.issue.body }}\", \
+          \"url\":\"${{ github.repositoryUrl }}\", \
+          \"openDate\":\"${{ github.event.issue.created_at }}\", \
+          \"repoName\":\"${{ github.repository }}\", \
+          \"issueId\":\"${{ github.event.issue.id }}\", \
+          \"issueNumber\":\"${{ github.event.issue.number }}\" }')"
       shell: bash
     - id: comment-issue
       uses: peter-evans/create-or-update-comment@v1
