@@ -10,14 +10,14 @@ runs:
   steps:
     - id: call-api
       run: |
-        echo "::set-output name=responseInfo::$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d "{ \
-          \"title\":\"\${{ github.event.issue.title }}\", \
+        echo "::set-output name=responseInfo::$(curl -X POST https://postman-echo.com/post -H "Content-Type: application/json" -d '{ \
+          \"title\":\"${{ github.event.issue.title }}\", \
           \"body\":\"${{ github.event.issue.body }}\", \
           \"url\":\"${{ github.repositoryUrl }}\", \
           \"openDate\":\"${{ github.event.issue.created_at }}\", \
           \"repoName\":\"${{ github.repository }}\", \
           \"issueId\":\"${{ github.event.issue.id }}\", \
-          \"issueNumber\":\"${{ github.event.issue.number }}\" }")"
+          \"issueNumber\":\"${{ github.event.issue.number }}\" }')"
       shell: bash
     - id: comment-issue
       uses: peter-evans/create-or-update-comment@v1
