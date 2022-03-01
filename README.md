@@ -7,10 +7,10 @@ This action helps developers find bug incuding commits using a tool known as Loc
 ```yaml
 name: Call Locus
 
-  on:
-    issues:
-      type:
-        - opened
+on:
+  issues:
+    type:
+      - opened
         
 jobs:
   build:
@@ -23,3 +23,8 @@ jobs:
 
 This action uses the text from the title and body of the issue and sends that and some other important information to our Locus tool.
 Locus looks at changes in code to determine which commits most likely caused the current bug.
+
+## Limitations
+
+* If a quotation mark is used in either the title or the body of the issue, it must have an accompanying quotation mark or the action will not work.
+* The action relies on information from the title and body of issues, therefore it must be used as shown above.
