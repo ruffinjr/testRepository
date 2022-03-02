@@ -5,6 +5,8 @@ Locus: LOcates bugs from software Change hUnkS
 
 ## Usage
 
+Add this action to your workflows
+
 ```yaml
 name: Call Locus
 
