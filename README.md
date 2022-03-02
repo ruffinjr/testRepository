@@ -5,7 +5,9 @@ Locus: LOcates bugs from software Change hUnkS
 
 ## Usage
 
-Add this action to your workflows
+* Add this action to your workflows
+* Create a new issue with a title and body that contain meaningful information about the bug
+* The action will do the rest of the work for you and present the commits that are most likely to blame for the bug
 
 ```yaml
 name: Call Locus
